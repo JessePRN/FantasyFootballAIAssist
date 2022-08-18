@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ticker Trends</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./static/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.6.1/d3.js"
+    integrity="sha512-pJbXh9nxFa1tkmI3Gxiay8+mKTW+QvM8aMrTSR4xcw671sTWkvlHBgnyqXCRr1HFkE0YwhoRZwcdUFFxP4D9Lg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <!-- container -->
+  <div class="container">
+
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-sm ">
+      <a href="index.html" class="navbar-brand mb-0 h1">Home</a>
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a href="about" class="nav-link">About The Team</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+   
+    <!-- jumbotron -->
+
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1>Fantasy Football AI Assistant</h1>
+        <p>Play to Win</p>
+      </div>
+    </div>
+
+    <br />
+    <div class="row">
+      <!-- dropdown menu for players -->
+      <div class="col-sm-4">
+        <div class="card form-control">
+          <div class="card-body">
+            <h5 class="card-title">Select Player</h5>
+            <p class="card-text">Select a player for your team. </p>
+            <select id="selectPlayer" onchange="playerSelected(this.value)"></select>
+          </div>
+        </div>
+      </div>
+     
+
+    
+  <!-- scripts -->
+  <script src="./static/index.js"></script>
+</body>
+
+</html>
