@@ -1,3 +1,5 @@
+pip list --format=freeze > requirements.txt 
+
 Combined.ipynb
 
 Added some code at top to mess with loading/saving files in colab
