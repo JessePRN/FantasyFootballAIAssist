@@ -1,10 +1,14 @@
 # Notes on Jupyter notebook
 
-Uses spark, run on collar
+Uses spark, run on colab
 
-# Useful command to reprint requirements.txt
+# Useful command to reprint requirements.txt w/o useless local paths when adding env dependencies
 
 pip list --format=freeze > requirements.txt 
+
+# App link
+
+https://fantasy-football-ai-assistant.herokuapp.com/
 
 # Wireframe link
 
