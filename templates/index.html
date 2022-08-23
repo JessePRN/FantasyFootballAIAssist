@@ -33,7 +33,7 @@
         </ul>
       </div>
     </nav>
-   
+
     <!-- jumbotron -->
 
     <div class="row">
@@ -45,6 +45,7 @@
 
     <br />
     <div class="row">
+
       <!-- dropdown menu for players -->
       <div class="col-sm-4">
         <div class="card form-control">
@@ -55,11 +56,21 @@
           </div>
         </div>
       </div>
-     
 
-    
-  <!-- scripts -->
-  <script src="./static/index.js"></script>
+      <!-- user roster -->
+      <div class="col-sm-4">
+        <div class="card form-control">
+          <div class="card-body">
+            <h5 class="card-title">User Roster</h5>
+            <button type="button" class="btn" onclick="resetLines()">Reset</button>
+            <div class="card-text" id="userRoster">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- scripts -->
+      <script src="./static/index.js"></script>
 </body>
 
 </html>

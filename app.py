@@ -8,25 +8,32 @@ from flask import Flask, jsonify, render_template
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///players.sqlite")
+username = "postgres"
+password = "admin123"
+rds_endpoint = "mydb2.cdvcwkjcaojs.us-east-1.rds.amazonaws.com"
 
+# engine = create_engine("sqlite:///players.sqlite")
+engine = create_engine(f"postgresql://{username}:{password}@{rds_endpoint}:5432")
+# postgresql://scott:tiger@localhost:5432/mydatabase
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
 Base.prepare(engine, reflect=True)
 
 # Save reference to the table
+print(Base.classes.keys())
 player_stats = Base.classes.players
 
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
-def get_db_connection():
-    conn = sqlite3.connect('players.sqlite')
-    conn.row_factory = sqlite3.Row
-    return conn
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///players.sqlite"
+# def get_db_connection():
+#     conn = sqlite3.connect('players.sqlite')
+#     conn.row_factory = sqlite3.Row
+#     return conn
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///players.sqlite"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin123@mydb2.cdvcwkjcaojs.us-east-1.rds.amazonaws.com:5432/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
