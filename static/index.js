@@ -31,30 +31,51 @@ function addSelectedPlayer(player) {
 init();
 
 function init() {
-
+  // selectPlayerCard
   // populating the stocks dropdown with unique names from stocks.sqlite
   d3.json("/players/names").then(function (response) {
-    // console.log("unique ticker names api response below");
-    // console.log(response);
-    response = response.sort()
-    // Append an option in the dropdown
-    response.forEach(function (name) {
+    console.log("/players/names");
+    console.log(response);
+    // response = response.sort()
+
+    for (var i = 0; i < response.length; i++) {
+      var obj = response[i]
       d3.select('#selectPlayer')
-        .append('option')
-        .text(name)
-    });
-  });
+          .append('option')
+          .text(obj.player) 
+    }
+  })
 
+  d3.json("/players/all").then(function (response) {
+    console.log("/players/all");
+    console.log(response);
+    // response = response.sort()
 
-
-  // let dropdownMenu = d3.select("#selStock");
-  // dropdownMenu.property("value") = "Netflix"
+    for (var i = 0; i < response.length; i++) {
+      var obj = response[i]
+      d3.select('#selectPlayerCard')
+          .append('option')
+          .text(obj.avg) 
+    }
+  })
 
 }//end init
 
 //utility
 function resetLines() {
   // console.log("resetlines executing")
-  d3.select('#userRoster').selectAll("*").remove()
+  d3.select('#selectPlayer').selectAll("*").remove()
   tickerData = []
 }
+
+
+// scratch
+// Append an option in the dropdown
+      // response.forEach(function (player) {
+      //   d3.select('#selectPlayer')
+      //     .append('option')
+      //     .text(player)
+      // });
+
+    // let dropdownMenu = d3.select("#selStock");
+    // dropdownMenu.property("value") = "Netflix"
