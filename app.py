@@ -54,8 +54,8 @@ class ffplayer(Base):
     points2021 = Column("2021 FantasyPoints", Float)
     production = Column("Production21", Float)
     atp = Column("Average Total Production", Float)
-    team = Column("Team", String)
-    pos = Column("POS", String)
+    team = Column("2021 Tm", String)
+    pos = Column("Pos", String)
     avg = Column("AVG", Float)
     pred = Column("Prediction", Float)
 
@@ -86,10 +86,10 @@ def about():
 def playerAll():
     session = Session(engine)
 
-    names = session.query(ffplayer.player, ffplayer.points2019, ffplayer.points2020, ffplayer.points2021, ffplayer.production, ffplayer.atp, ffplayer.team, ffplayer.pos, ffplayer.avg).all()
+    names = session.query(ffplayer.player, ffplayer.points2019, ffplayer.points2020, ffplayer.points2021, ffplayer.production, ffplayer.atp, ffplayer.team, ffplayer.pos, ffplayer.avg, ffplayer.pred).all()
     names_df = pd.DataFrame(names)
     # ffplayer.points2020, ffplayer.points2021, ffplayer.production, ffplayer.atp, ffplayer.team, ffplayer.pos, ffplayer.avg, ffplayer.pred)
-    names_df.columns = ["player", "points2019", "points2020", "points2021", "production", "atp", "team", "pos", "avg"]
+    names_df.columns = ["player", "points2019", "points2020", "points2021", "production", "atp", "team", "pos", "avg", "pred"]
     # , "points2021", "production", "atp", "team", "pos", "avg", "pred"]    
     names_dict = names_df.to_dict(orient="records")
     
