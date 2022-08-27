@@ -1,4 +1,5 @@
 playerList = []
+userRoster = []
 
 // called by player dropdown
 function playerSelected() {
@@ -23,6 +24,7 @@ function addSelectedPlayer(player) {
       // console.log(i);
       // let testval = d3.event.target.childNodes[0].data
       console.log(d.target.childNodes[0].data);
+      console.log(searchPlayerList((d.target.childNodes[0].data).split(",")[0]))
     })
 
 }
@@ -139,9 +141,6 @@ d3.json('/draft').then( function(data) {
   if (pos != 'All'){
     data = data.filter(d => {return d.Pos == pos})
   }
-
-
-
 
   // Scales
   const x = d3.scaleBand()

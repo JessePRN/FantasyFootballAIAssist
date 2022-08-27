@@ -108,6 +108,13 @@ def playerNames():
     session.close()
     return jsonify(names_dict)
 
+# added this new route for the radius chart
+@app.route("/draft")
+def draft():
+    df = pd.read_csv('Lynne/Resources/Draft.csv')
+    
+    return jsonify (df.to_dict(orient='records'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
