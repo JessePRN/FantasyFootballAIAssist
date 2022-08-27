@@ -1,15 +1,16 @@
 playerList = []
+userRoster = []
 
 // called by player dropdown
 function playerSelected() {
   let dropdownMenu = d3.select("#selectPlayer");
   let player = dropdownMenu.property("value");
-  console.log("crypto ticker selected value is " + player)
+  console.log("selected player is " + player)
   // d3.json("/tickers/name/" + tickerName).then(function (response) {
   //   console.log("playerSelected response below");
   //   console.log(response);
   // })
-  addSelectedPlayer(player)
+  // addSelectedPlayer(player)
 }
 
 function addSelectedPlayer(player) {
@@ -22,7 +23,11 @@ function addSelectedPlayer(player) {
       // console.log(d);
       // console.log(i);
       // let testval = d3.event.target.childNodes[0].data
+      // playerSelected(d.target.childNodes[0].data)
       console.log(d.target.childNodes[0].data);
+      console.log(searchPlayerList((d.target.childNodes[0].data).split(",")[0]))
+
+      // console.log()
     })
 
 }
@@ -40,8 +45,8 @@ function init() {
     for (var i = 0; i < response.length; i++) {
       var obj = response[i]
       d3.select('#selectPlayer')
-          .append('option')
-          .text(obj.player) 
+        .append('option')
+        .text(obj.player)
     }
   })
 
@@ -51,13 +56,17 @@ function init() {
     // response = response.sort()
     // buildList(response)
     playerList = response
-    for (var i = 0; i < response.length; i++) {
-      var obj = response[i]
-      d3.select('#playerList')
-          .append('li')
-          .attr('class', 'list-group-item')
-          .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos) 
-    }
+    filterBuildTable("All")
+    // for (var i = 0; i < response.length; i++) {
+    //   var obj = response[i]
+    //   d3.select('#playerList')
+    //     .append('li')
+    //     .attr('class', 'list-group-item')
+    //     .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos
+    //       + ", Production:" + obj.production + ", ATP:" + obj.atp + ", Team:" + obj.team
+    //       + ", AVG:" + obj.avg + ", Prediction:" + obj.pred)
+          
+    // }
   })
 
 }//end init
@@ -65,21 +74,59 @@ function init() {
 //utility
 function resetLines() {
   // console.log("resetlines executing")
-  d3.select('#selectPlayer').selectAll("*").remove()
+  d3.select('#userRoster').selectAll("*").remove()
   tickerData = []
 }
 
-function filterBuildTable(pos){
-  d3.select('#playerList').selectAll("*").remove()
-
+//takes a player name and searches list of players for player data
+function searchPlayerList(player) {
   for (var i = 0; i < playerList.length; i++) {
     var obj = playerList[i]
-    if(playerList[i].pos === pos){
-    d3.select('#playerList')
+    if (player === obj.player) {
+      return obj 
+    }
+  }
+}
+
+//populates player list based on position filter
+function filterBuildTable(pos) {
+  d3.select('#playerList').selectAll("*").remove()
+  for (var i = 0; i < playerList.length; i++) {
+    var obj = playerList[i]
+    if (pos === "All") {
+      d3.select('#playerList')
         .append('li')
         .attr('class', 'list-group-item')
-        .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos) 
-      }
+        // .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos)
+        .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos
+          + ", Production:" + obj.production.toFixed(3) + ", ATP:" + obj.atp.toFixed(3) + ", Team:" + obj.team
+          + ", AVG:" + obj.avg + ", Prediction:" + obj.pred.toFixed(3))
+        .on("click", function (d) {
+          // console.log(d);
+          // console.log(i);
+          // let testval = d3.event.target.childNodes[0].data
+          addSelectedPlayer(d.target.childNodes[0].data)
+          console.log(d.target.childNodes[0].data);
+          // console.log()
+        })
+    }
+    else if (playerList[i].pos === pos) {
+      d3.select('#playerList')
+        .append('li')
+        .attr('class', 'list-group-item')
+        // .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos)
+        .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos
+          + ", Production:" + obj.production.toFixed(3) + ", ATP:" + obj.atp.toFixed(3) + ", Team:" + obj.team
+          + ", AVG:" + obj.avg + ", Prediction:" + obj.pred.toFixed(3))
+        .on("click", function (d) {
+          // console.log(d);
+          // console.log(i);
+          // let testval = d3.event.target.childNodes[0].data
+          addSelectedPlayer(d.target.childNodes[0].data)
+          console.log(d.target.childNodes[0].data);
+          // console.log()
+        })
+    }
   }
 }
 
@@ -91,4 +138,3 @@ function filterBuildTable(pos){
       //     .text(player)
       // });
 
-  

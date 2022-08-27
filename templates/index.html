@@ -46,7 +46,7 @@
     <br />
     <div class="row">
 
-      <!-- dropdown menu for players -->
+      <!-- dropdown menu for players
       <div class="col-sm-4">
         <div class="card form-control">
           <div class="card-body">
@@ -55,29 +55,10 @@
             <select id="selectPlayer" onchange="playerSelected(this.value)"></select>
           </div>
         </div>
-      </div>
-
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary" onclick="filterPlayers(this.value)">All</button>
-        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('QB')">QB</button>
-        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('RB')">RB</button>
-        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('WR')">WR</button>
-        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('TE')">TE</button>
-        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('K')">K</button>
-        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('DST')">DST</button>
+      </div> -->
 
 
-      </div>
-
-      <ul class="list-group" id="playerList">
-        <!-- <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
-        <li class="list-group-item">Porta ac consectetur ac</li>
-        <li class="list-group-item">Vestibulum at eros</li> -->
-      </ul>
-
-      <!-- user roster -->
+        <!-- user roster -->
       <div class="col-sm-4">
         <div class="card form-control">
           <div class="card-body">
@@ -88,8 +69,32 @@
           </div>
         </div>
       </div>
+        <!-- <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li> -->
+      </ul>
+      </div>
+      <div class="row">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" onclick="filterPlayers('All')">All</button>
+        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('QB')">QB</button>
+        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('RB')">RB</button>
+        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('WR')">WR</button>
+        <button type="button" class="btn btn-secondary" onclick="filterBuildTable('TE')">TE</button>
+        <!-- <button type="button" class="btn btn-secondary" onclick="filterBuildTable('K')">K</button> -->
+        <!-- <button type="button" class="btn btn-secondary" onclick="filterBuildTable('DST')">DST</button> -->
 
-      <div id="playerTable" class="panel-body"></div>
+
+      </div>
+
+      <ul class="list-group" id="playerList">
+
+
+      
+
+      <!-- <div id="playerTable" class="panel-body"></div> -->
 
       <!-- scripts -->
       <script src="./static/index.js"></script>
