@@ -1,4 +1,4 @@
-
+playerList = []
 
 // called by player dropdown
 function playerSelected() {
@@ -27,43 +27,9 @@ function addSelectedPlayer(player) {
 
 }
 
-//filter play list based on role
-function filterPlayers(pos) {
-
-  
-  // console.log("addTickerSelected being executed on " + ticker)
-  // const b = d3.selectAll("list-group-item").filter()
-
-  // let hideall = d3.selectAll("li")
-  //   // .filter(function(d){return d.text.includes(pos) })
-  //   .attr("hidden", true)
-  let showall = d3.selectAll("li")
-    // .filter(function(d){return d.text.includes(pos) })
-    // .attr("visibility", "hidden")
-    .attr("hidden", true)
-
-
-  let selected = d3.selectAll("li")
-    // .filter(function(d){return d.text.includes(pos) })
-    .filter(function(d) { return d.text().includes(pos) })
-    
-  selected.attr("hidden", false)
-    console.log("showall")
-
-    console.log(showall)
-    console.log("selected")
-
-    console.log(selected)
-
-    // console.log(selected)
-
-}
-
 init();
 
 function init() {
-
-  
 
   // selectPlayerCard
   d3.json("/players/names").then(function (response) {
@@ -84,7 +50,7 @@ function init() {
     console.log(response);
     // response = response.sort()
     // buildList(response)
-
+    playerList = response
     for (var i = 0; i < response.length; i++) {
       var obj = response[i]
       d3.select('#playerList')
@@ -93,8 +59,6 @@ function init() {
           .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos) 
     }
   })
-
-  
 
 }//end init
 
@@ -105,84 +69,18 @@ function resetLines() {
   tickerData = []
 }
 
-function buildTable(response) {
+function filterBuildTable(pos){
+  d3.select('#playerList').selectAll("*").remove()
 
-  let demoTable = d3.select('#playerTable')
-  demoTable.html('')
-
-  for (var i = 0; i < response.length; i++) {
-
-    // var obj = response[i]
-    let fillTable = demoTable.append("mytable")
-    let row = fillTable.append('tr')
-    let tableData = row.append('td')
-    let Name = tableData.text('For: ' + response[i].player)
-    row = fillTable.append('tr')
-    tableData = row.append('td')
-    let Ticker = tableData.text('Ticker: ' + response[i].points2019)
-    row = fillTable.append('tr')
-    tableData = row.append('td')
-    let Price = tableData.text('Close: ' + response[i].production)
-    row = fillTable.append('tr')
-    tableData = row.append('td')
-    let Date = tableData.text('Date: ' + response[i].team)
-    row = fillTable.append('tr')
-    tableData = row.append('td')  
-
-
+  for (var i = 0; i < playerList.length; i++) {
+    var obj = playerList[i]
+    if(playerList[i].pos === pos){
+    d3.select('#playerList')
+        .append('li')
+        .attr('class', 'list-group-item')
+        .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos) 
+      }
   }
-
-
-  // for (var i = 0; i < response.length; i++) {
-  //   var obj = response[i]
-  //   // d3.select('#selectPlayerCard')
-  //   //     .append('option')
-  //   //     .text(obj.avg) 
-  //   let fillTable = demoTable.append("mytable")
-  //   let row = fillTable.append('tr')
-  //   let tableData = row.append('td')
-    // populate table
-  
-}
-
-function buildList(response) {
-
-  let demoTable = d3.select('#playerTable')
-  demoTable.html('')
-
-  for (var i = 0; i < response.length; i++) {
-
-    // var obj = response[i]
-    let fillTable = demoTable.append("mytable")
-    let row = fillTable.append('tr')
-    let tableData = row.append('td')
-    let Name = tableData.text('For: ' + response[i].player)
-    row = fillTable.append('tr')
-    tableData = row.append('td')
-    let Ticker = tableData.text('Ticker: ' + response[i].points2019)
-    row = fillTable.append('tr')
-    tableData = row.append('td')
-    let Price = tableData.text('Close: ' + response[i].production)
-    row = fillTable.append('tr')
-    tableData = row.append('td')
-    let Date = tableData.text('Date: ' + response[i].team)
-    row = fillTable.append('tr')
-    tableData = row.append('td')  
-
-
-  }
-
-
-  // for (var i = 0; i < response.length; i++) {
-  //   var obj = response[i]
-  //   // d3.select('#selectPlayerCard')
-  //   //     .append('option')
-  //   //     .text(obj.avg) 
-  //   let fillTable = demoTable.append("mytable")
-  //   let row = fillTable.append('tr')
-  //   let tableData = row.append('td')
-    // populate table
-  
 }
 
 // scratch
