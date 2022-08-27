@@ -58,9 +58,15 @@
       </div>
 
       <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary">Left</button>
-        <button type="button" class="btn btn-secondary">Middle</button>
-        <button type="button" class="btn btn-secondary">Right</button>
+        <button type="button" class="btn btn-secondary" onclick="filterPlayers(this.value)">All</button>
+        <button type="button" class="btn btn-secondary" onclick="filterPlayers('QB')">QB</button>
+        <button type="button" class="btn btn-secondary" onclick="filterPlayers('RB')">RB</button>
+        <button type="button" class="btn btn-secondary" onclick="filterPlayers('WR')">WR</button>
+        <button type="button" class="btn btn-secondary" onclick="filterPlayers('TE')">TE</button>
+        <button type="button" class="btn btn-secondary" onclick="filterPlayers('K')">K</button>
+        <button type="button" class="btn btn-secondary" onclick="filterPlayers('DST')">DST</button>
+
+
       </div>
 
       <ul class="list-group" id="playerList">

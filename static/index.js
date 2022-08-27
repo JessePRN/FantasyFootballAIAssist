@@ -27,10 +27,44 @@ function addSelectedPlayer(player) {
 
 }
 
+//filter play list based on role
+function filterPlayers(pos) {
+
+  
+  // console.log("addTickerSelected being executed on " + ticker)
+  // const b = d3.selectAll("list-group-item").filter()
+
+  // let hideall = d3.selectAll("li")
+  //   // .filter(function(d){return d.text.includes(pos) })
+  //   .attr("hidden", true)
+  let showall = d3.selectAll("li")
+    // .filter(function(d){return d.text.includes(pos) })
+    // .attr("visibility", "hidden")
+    .attr("hidden", true)
+
+
+  let selected = d3.selectAll("li")
+    // .filter(function(d){return d.text.includes(pos) })
+    .filter(function(d) { return d.text().includes(pos) })
+    
+  selected.attr("hidden", false)
+    console.log("showall")
+
+    console.log(showall)
+    console.log("selected")
+
+    console.log(selected)
+
+    // console.log(selected)
+
+}
 
 init();
 
 function init() {
+
+  
+
   // selectPlayerCard
   d3.json("/players/names").then(function (response) {
     console.log("/players/names");
@@ -56,7 +90,7 @@ function init() {
       d3.select('#playerList')
           .append('li')
           .attr('class', 'list-group-item')
-          .text(obj.player) 
+          .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos) 
     }
   })
 
