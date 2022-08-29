@@ -16,6 +16,7 @@
 </head> -->
 
 <!-- I commented out the old header so the radius wheel will work. it doesn't seem to interfer with the other stuff -->
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,11 +26,11 @@
     rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
     crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./static/style.css">
- <!-- circular bar chart begin -->
+  <!-- circular bar chart begin -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.6.1/d3.js"
     integrity="sha512-pJbXh9nxFa1tkmI3Gxiay8+mKTW+QvM8aMrTSR4xcw671sTWkvlHBgnyqXCRr1HFkE0YwhoRZwcdUFFxP4D9Lg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-    <!-- circular bar chart end -->
+  <!-- circular bar chart end -->
 
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v6.js"></script>
@@ -81,7 +82,7 @@
       </div>
 
 
-        <!-- user roster -->
+      <!-- user roster -->
       <div class="col-sm-4">
         <div class="card form-control">
           <div class="card-body">
@@ -92,57 +93,72 @@
           </div>
         </div>
       </div>
-        <!-- <li class="list-group-item">Cras justo odio</li>
+      <!-- <li class="list-group-item">Cras justo odio</li>
         <li class="list-group-item">Dapibus ac facilisis in</li>
         <li class="list-group-item">Morbi leo risus</li>
         <li class="list-group-item">Porta ac consectetur ac</li>
         <li class="list-group-item">Vestibulum at eros</li> -->
       </ul>
-      </div>
-      <div class="row">
+    </div>
+    <div class="row">
       <!-- <div class="btn-group" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-secondary" onclick="filterPlayers('All')">All</button>
         <button type="button" class="btn btn-secondary" onclick="filterBuildTable('QB')">QB</button>
         <button type="button" class="btn btn-secondary" onclick="filterBuildTable('RB')">RB</button>
         <button type="button" class="btn btn-secondary" onclick="filterBuildTable('WR')">WR</button>
         <button type="button" class="btn btn-secondary" onclick="filterBuildTable('TE')">TE</button> -->
-        <!-- <button type="button" class="btn btn-secondary" onclick="filterBuildTable('K')">K</button> -->
-        <!-- <button type="button" class="btn btn-secondary" onclick="filterBuildTable('DST')">DST</button> -->
+      <!-- <button type="button" class="btn btn-secondary" onclick="filterBuildTable('K')">K</button> -->
+      <!-- <button type="button" class="btn btn-secondary" onclick="filterBuildTable('DST')">DST</button> -->
 
-  <!-- added new function to the js so the chart can update too -->
+      <!-- added new function to the js so the chart can update too -->
 
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-secondary" onclick="filterPlayers(this.value)">All</button>
-          <button type="button" class="btn btn-secondary" onclick="updateAllCharts('QB')">QB</button>
-          <button type="button" class="btn btn-secondary" onclick="updateAllCharts('RB')">RB</button>
-          <button type="button" class="btn btn-secondary" onclick="updateAllCharts('WR')">WR</button>
-          <button type="button" class="btn btn-secondary" onclick="updateAllCharts('TE')">TE</button>
-          <!-- <button type="button" class="btn btn-secondary" onclick="updateAllCharts('K')">K</button>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" onclick="filterPlayers(this.value)">All</button>
+        <button type="button" class="btn btn-secondary" onclick="updateAllCharts('QB')">QB</button>
+        <button type="button" class="btn btn-secondary" onclick="updateAllCharts('RB')">RB</button>
+        <button type="button" class="btn btn-secondary" onclick="updateAllCharts('WR')">WR</button>
+        <button type="button" class="btn btn-secondary" onclick="updateAllCharts('TE')">TE</button>
+        <!-- <button type="button" class="btn btn-secondary" onclick="updateAllCharts('K')">K</button>
           <button type="button" class="btn btn-secondary" onclick="updateAllCharts('DST')">DST</button> -->
 
       </div>
 
       <ul class="list-group" id="playerList"></ul>
 
+      <table class="objecttable" id="playerTable">
+        <thead>
+          <tr>
+            <th>player</th>
+            <th>points2021</th>
+            <th>pos</th>
+            <th>production</th>
+            <th>atp</th>
+            <th>team</th>
+            <th>avg</th>
+            <th>pred</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
 
-      
-
-      <div id="playerTable" class="panel-body"> </div>
 
 
-  <!-- radial pie chart start-->
-      <div class = "container">
-        <div class = "col-lg-12">
-          <div class = "card form-control">
-            <div class = "card-body">
+      <!-- <div id="playerTable" class="panel-body"> </div> -->
+
+
+      <!-- radial pie chart start-->
+      <div class="container">
+        <div class="col-lg-12">
+          <div class="card form-control">
+            <div class="card-body">
               <h5 class="card-title"> Prediction Wheel</h5>
-                <!-- Create a div where the graph will take place -->
+              <!-- Create a div where the graph will take place -->
               <div id="radialChart"></div>
             </div>
-          </div>  
+          </div>
         </div>
-      </div> 
-        <!-- radial pie chart end -->
+      </div>
+      <!-- radial pie chart end -->
 
       <!-- scripts -->
       <script src="./static/index.js"></script>
