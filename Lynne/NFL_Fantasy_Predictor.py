@@ -1,14 +1,24 @@
+# -------------------------------------------------------------------
 # NFL Fantasy Football Draft Position Predictor
-# This script runs the model from NFL_Fantasy_model_Tuner(s)
+# -------------------------------------------------------------------
+# This script runs the model from NFL_Fantasy_model_Tuner(s).
+# Two Input files are required 
+#     All skills positions
+#     Quaterbacks only 
+# They use two different Models and has different features
+# Input data with the values of Infinity cannot be scaled.
+# Those players with a value of Infinty in any field will be dropped.
+# -------------------------------------------------------------------
+# laf 08.24.2022
 
+# Dependancies
 import pandas as pd
 import numpy as np
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 import joblib
 import sys
-from Rookie import rookie_fix, rookie_fix_qb
+from Rookie import rookie_fix, rookie_fix_qb, inactive_fix
 
 # Results Column Labels
 RSC = ['Player','2019 FantasyPoints', '2020 FantasyPoints', '2021 FantasyPoints',
@@ -31,6 +41,7 @@ adp.dropna(subset=['AVG'], inplace=True)
 qb.dropna(subset=['AVG'], inplace=True)
 r.dropna(subset=['AVG'], inplace=True)
 rqb.dropna(subset=['AVG'], inplace=True)
+qb.drop(qb[qb['AVG'] == 0].index, inplace = True)  # For Veteran QB Only null AVG 0 in source
 
 r = rookie_fix(r)
 rqb = rookie_fix_qb(rqb)
@@ -48,27 +59,21 @@ qb.drop(qb.columns[col],axis=1,inplace=True)
 r.drop(r.columns[col],axis=1,inplace=True)
 rqb.drop(rqb.columns[col],axis=1,inplace=True)
 
-# All other skill 
-# Verify that all numeric data is numeric 
+# Verify that expected numeric data is numeric 
 invalidNumbers = adp[~adp.applymap(np.isreal).all(1)]
 if len(invalidNumbers) > 0:
-    sys.exit(f'There are {len(invalidNumbers)} rows with invaid numeric data')
+    sys.exit(f'There are {len(invalidNumbers)} rows with invalid numeric data')
+invalidNumbers = qb[~qb.applymap(np.isreal).all(1)]
+if len(invalidNumbers) > 0:
+    sys.exit(f'There are {len(invalidNumbers)} rows with invalid numeric data')
     
 # Check for unexpected nulls 
 count_nan = adp.isna().sum().sum()
 if count_nan > 0:
-    sys.exit(f'Invaid data Encountered: {count_nan} fields have null values')
-
-# QB 
-# Verify that all numeric data is numeric 
-invalidNumbers = qb[~qb.applymap(np.isreal).all(1)]
-if len(invalidNumbers) > 0:
-    sys.exit(f'There are {len(invalidNumbers)} rows with invaid numeric data')
-    
-# Check for unexpected nulls 
+    sys.exit(f'Invalid data Encountered: {count_nan} fields have null values')
 count_nan = qb.isna().sum().sum()
 if count_nan > 0:
-    sys.exit(f'Invaid data Encountered: {count_nan} fields have null values')
+    sys.exit(f'Invalid data Encountered: {count_nan} fields have null values')
 
 # All other skill rookie
 # Verify that all numeric data is numeric 
@@ -81,7 +86,7 @@ count_nan = r.isna().sum().sum()
 if count_nan > 0:
     sys.exit(f'Invaid data Encountered: {count_nan} fields have null values')
 
-# QB 
+# QB Rookie
 # Verify that all numeric data is numeric 
 invalidNumbers = rqb[~rqb.applymap(np.isreal).all(1)]
 if len(invalidNumbers) > 0:
@@ -122,15 +127,14 @@ rqb.dropna(inplace=True)
 
 
 # Standarize data with Scaler required by model 
-qbs = StandardScaler().fit_transform(qb)
+qbs = MinMaxScaler().fit_transform(qb)
 apds = MinMaxScaler().fit_transform(adp)
 rs = MinMaxScaler().fit_transform(r)
 rqbs = MinMaxScaler().fit_transform(rqb)
 
-# Apply PCA
-# Applying PCA to reduce dimensions while preserving 99% of the explained variance 
+# Applying PCA to reduce dimensions to the number required by each model  
 pca = PCA(n_components= 23)
-pcaq = PCA(n_components= 13)
+pcaq = PCA(n_components= 14)
 pcar = PCA(n_components= 3)
 pcarq = PCA(n_components= 3)
 
@@ -146,23 +150,19 @@ pfqb = pd.DataFrame(data=pfb)
 pfr = pd.DataFrame(data=pfc)
 pfrqb = pd.DataFrame(data=pfd)
 
-
 # Predict Draft Positions
 draft_position = draft.predict(pf)
 qb_draft_position = qbdraft.predict(pfqb)
 r_draft_position = rdraft.predict(pfc)
 rqb_draft_position = rdraft.predict(pfd)
 
-
 # Add predicted draft positions to our results file 
-# Add column to results df
 frames = [adp_scope, qb_scope, r_scope, rqb_scope]
 
 adp_scope['Prediction'] = draft_position
 qb_scope['Prediction'] = qb_draft_position
 r_scope['Prediction'] = r_draft_position
 rqb_scope['Prediction'] = rqb_draft_position
-
 
 # Combine DataFrames into complete dataset.
 final = pd.concat(frames)
