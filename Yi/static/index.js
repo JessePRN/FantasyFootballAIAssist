@@ -141,6 +141,8 @@ d3.json('/draft').then( function(data) {
   if (pos != 'All'){
     data = data.filter(d => {return d.Pos == pos})
   }
+  //sort
+  data = data.sort((a,b) =>{ return b.Prediction - a.Prediction} )
 
   // Scales
   const x = d3.scaleBand()
@@ -173,7 +175,7 @@ d3.json('/draft').then( function(data) {
         .attr("text-anchor", function(d) { return (x(d.Player) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
         .attr("transform", function(d) { return "rotate(" + ((x(d.Player) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['Prediction'])+90) + ",0)"; })
       .append("text")
-        .text(function(d){return(d.Player)})
+        .text(function(d){return(`${d.Player}: ${d.AVG}`)})
         .attr("transform", function(d) { return (x(d.Player) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
         .style("font-size", "11px")
         .attr("alignment-baseline", "middle")
