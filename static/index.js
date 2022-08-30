@@ -44,6 +44,7 @@ function init() {
     // console.log(response);
     playerList = response
     filterBuildTableClean("All")
+    handlePagination()
   })
 
   // displaying radius chart
@@ -78,9 +79,9 @@ function filterBuildTableClean(pos) {
     var obj = playerList[i]
     if (pos === "All" || obj.pos === pos) {
 
-     row = d3.select('#playerTable').select('tbody').append("tr")
-    // .data(obj)
-    // .enter().append("tr")
+      row = d3.select('#playerTable').select('tbody').append("tr")
+      // .data(obj)
+      // .enter().append("tr")
       row.append('td').text(obj.player)
       row.append('td').text(obj.points2021)
       row.append('td').text(obj.pos)
@@ -89,7 +90,7 @@ function filterBuildTableClean(pos) {
       row.append('td').text(obj.team)
       row.append('td').text(obj.avg)
       row.append('td').text(obj.pred.toFixed(3))
-      row.append('td').append("button").attr("value",obj.player).text("+").on("click", function (d) {
+      row.append('td').append("button").attr("value", obj.player).text("+").on("click", function (d) {
         console.log(d.target.value)
         addSelectedPlayer((d.target.value))
       })
@@ -98,6 +99,33 @@ function filterBuildTableClean(pos) {
   }
 }
 
+function handlePagination() {
+  d3.select('#nav').selectAll("*").remove()
+
+  $(document).ready(function () {
+    $('#playerTable').after('<div id="nav"></div>');
+    var rowsShown = 10;
+    var rowsTotal = $('#playerTable tbody tr').length;
+    var numPages = rowsTotal / rowsShown;
+    for (i = 0; i < numPages; i++) {
+      var pageNum = i + 1;
+      $('#nav').append('<a href="#" rel="' + i + '">' + pageNum + '</a> ');
+    }
+    $('#playerTable tbody tr').hide();
+    $('#playerTable tbody tr').slice(0, rowsShown).show();
+    $('#nav a:first').addClass('active');
+    $('#nav a').bind('click', function () {
+
+      $('#nav a').removeClass('active');
+      $(this).addClass('active');
+      var currPage = $(this).attr('rel');
+      var startItem = currPage * rowsShown;
+      var endItem = startItem + rowsShown;
+      $('#playerTable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+        css('display', 'table-row').animate({ opacity: 1 }, 300);
+    })
+  })
+}
 // drawing the radial chart
 
 function drawRadialChart(pos) {
@@ -120,15 +148,15 @@ function drawRadialChart(pos) {
 
   // accessing player data
   d3.json("/players/all").then(function (data) {
-  // d3.json("/draft").then(function (data) {
+    // d3.json("/draft").then(function (data) {
     // console.log("draft response")
     // console.log(data)
 
     if (pos != 'All') {
       data = data.filter(d => { return d.pos == pos })
     }
-  //sort
-      data = data.sort((a,b) =>{ return b.pred - a.pred} )
+    //sort
+    data = data.sort((a, b) => { return b.pred - a.pred })
 
     // Scales
     const x = d3.scaleBand()
@@ -173,6 +201,7 @@ function drawRadialChart(pos) {
 // function to update all the charts 
 function updateAllCharts(pos) {
   filterBuildTableClean(pos)
+  handlePagination()
   drawRadialChart(pos)
 
   console.log("confirm updating all charts")
