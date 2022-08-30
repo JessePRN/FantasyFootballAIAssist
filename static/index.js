@@ -71,75 +71,32 @@ function searchPlayerList(player) {
 }
 
 function filterBuildTableClean(pos) {
-
-
-  d3.select('#playerTable').selectAll("*").remove()
+  d3.select('#playerTable').select('tbody').selectAll("*").remove()
   playerListDisplay = []
 
   for (var i = 0; i < playerList.length; i++) {
-        var obj = playerList[i]
-    if (pos === "All") {
-      playerListDisplay.push(obj)
-    }else if(obj.pos === pos){
+    var obj = playerList[i]
+    if (pos === "All" || obj.pos === pos) {
+
+     row = d3.select('#playerTable').select('tbody').append("tr")
+    // .data(obj)
+    // .enter().append("tr")
+      row.append('td').text(obj.player)
+      row.append('td').text(obj.points2021)
+      row.append('td').text(obj.pos)
+      row.append('td').text(obj.production.toFixed(3))
+      row.append('td').text(obj.atp.toFixed(3))
+      row.append('td').text(obj.team)
+      row.append('td').text(obj.avg)
+      row.append('td').text(obj.pred.toFixed(3))
+      row.append('td').append("button").attr("value",obj.player).text("+").on("click", function (d) {
+        console.log(d.target.value)
+        addSelectedPlayer((d.target.value))
+      })
       playerListDisplay.push(obj)
     }
-
   }
-
-  var tr = d3.select('#playerTable')
-    .selectAll("tr")
-    .data(playerListDisplay)
-    .enter().append("tr")
-  // console.log(tr)  
-
-  var td = tr.selectAll("td")
-    .data(function (d, i) { return Object.values(d); })
-    .enter().append("td")
-    .text(function (d) { return d; })
 }
-
-//populates player list based on position filter
-// function filterBuildTable(pos) {
-//   d3.select('#playerList').selectAll("*").remove()
-//   for (var i = 0; i < playerList.length; i++) {
-//     var obj = playerList[i]
-//     if (pos === "All") {
-//       d3.select('#playerList')
-//         .append('li')
-//         .attr('class', 'list-group-item')
-
-//         // .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos)
-//         .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos
-//           + ", Production:" + obj.production.toFixed(3) + ", ATP:" + obj.atp.toFixed(3) + ", Team:" + obj.team
-//           + ", AVG:" + obj.avg + ", Prediction:" + obj.pred.toFixed(3))
-//         .on("click", function (d) {
-//           // console.log(d);
-//           // console.log(i);
-//           // let testval = d3.event.target.childNodes[0].data
-//           addSelectedPlayer(d.target.childNodes[0].data)
-//           console.log(d.target.childNodes[0].data);
-//           // console.log()
-//         })
-//     }
-//     else if (playerList[i].pos === pos) {
-//       d3.select('#playerList')
-//         .append('li')
-//         .attr('class', 'list-group-item')
-//         // .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos)
-//         .text(obj.player + ", Points: " + obj.points2021 + ", POS:" + obj.pos
-//           + ", Production:" + obj.production.toFixed(3) + ", ATP:" + obj.atp.toFixed(3) + ", Team:" + obj.team
-//           + ", AVG:" + obj.avg + ", Prediction:" + obj.pred.toFixed(3))
-//         .on("click", function (d) {
-//           // console.log(d);
-//           // console.log(i);
-//           // let testval = d3.event.target.childNodes[0].data
-//           addSelectedPlayer(d.target.childNodes[0].data)
-//           console.log(d.target.childNodes[0].data);
-//           // console.log()
-//         })
-//     }
-//   }
-// }
 
 // drawing the radial chart
 
@@ -162,18 +119,22 @@ function drawRadialChart(pos) {
     .attr("transform", `translate(${width / 2 + margin.left}, ${height / 2 + margin.top})`);
 
   // accessing player data
-  d3.json('/draft').then(function (data) {
+  d3.json("/players/all").then(function (data) {
+  // d3.json("/draft").then(function (data) {
+    // console.log("draft response")
+    // console.log(data)
+
     if (pos != 'All') {
-      data = data.filter(d => { return d.Pos == pos })
+      data = data.filter(d => { return d.pos == pos })
     }
   //sort
-      data = data.sort((a,b) =>{ return b.Prediction - a.Prediction} )
+      data = data.sort((a,b) =>{ return b.pred - a.pred} )
 
     // Scales
     const x = d3.scaleBand()
       .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
       .align(0)                  // This does nothing
-      .domain(data.map(d => d.Player)); // The domain of the X axis is the list of states.
+      .domain(data.map(d => d.player)); // The domain of the X axis is the list of states.
     const y = d3.scaleRadial()
       .range([innerRadius, outerRadius])   // Domain will be define later.
       .domain([0, 14000]); // Domain of Y is from 0 to the max seen in the data
@@ -186,9 +147,9 @@ function drawRadialChart(pos) {
       .attr("fill", "#69b3a2")
       .attr("d", d3.arc()     // imagine your doing a part of a donut plot
         .innerRadius(innerRadius)
-        .outerRadius(d => y(15 * d['Prediction']))
-        .startAngle(d => x(d.Player))
-        .endAngle(d => x(d.Player) + x.bandwidth())
+        .outerRadius(d => y(15 * d['pred']))
+        .startAngle(d => x(d.player))
+        .endAngle(d => x(d.player) + x.bandwidth())
         .padAngle(0.01)
         .padRadius(innerRadius))
 
@@ -197,11 +158,11 @@ function drawRadialChart(pos) {
       .selectAll("g")
       .data(data)
       .join("g")
-      .attr("text-anchor", function (d) { return (x(d.Player) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-      .attr("transform", function (d) { return "rotate(" + ((x(d.Player) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")" + "translate(" + (y(d['Prediction']) + 90) + ",0)"; })
+      .attr("text-anchor", function (d) { return (x(d.player) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
+      .attr("transform", function (d) { return "rotate(" + ((x(d.player) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")" + "translate(" + (y(d['pred']) + 90) + ",0)"; })
       .append("text")
-      .text(function (d) { return (`${d.Player}: ${d.AVG}`) })
-      .attr("transform", function (d) { return (x(d.Player) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
+      .text(function (d) { return (`${d.player}: ${d.avg}`) })
+      .attr("transform", function (d) { return (x(d.player) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
       .style("font-size", "11px")
       .attr("alignment-baseline", "middle")
 
