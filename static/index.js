@@ -10,11 +10,25 @@ function playerSelected() {
 }
 
 function addSelectedPlayer(player) {
+  playerEncoded = player.replace(" ", "+") + ".png"
+  let s3link = "https://ffai.s3.amazonaws.com/" + playerEncoded
+  console.log("s3link is " + s3link)
+
   // console.log("addTickerSelected being executed on " + ticker)
   d3.select("#userRoster")
-    .append("button")
-    .html(player)
-    .attr("class", "player")
+    .append("card")
+    .attr("style","width: 18rem;")
+    // <img class="card-img-top" src="..." alt="Card image cap">
+      // .append("img")
+      // <h5 class="card-title">Card title</h5>
+    .append("h5")
+    .attr("class", "card-title")
+    .text(player)
+    // .html(player)
+    .append("img")
+    .attr("class", "card-img-top")
+    .attr("src", s3link)
+
     .on("click", function (d) {
       console.log(d.target.childNodes[0].data);
       console.log(searchPlayerList((d.target.childNodes[0].data).split(",")[0]))
@@ -50,15 +64,12 @@ function init() {
   // displaying radius chart
   drawRadialChart('All')
   console.log("display radial chart")
-
-
 }//end init
 
 //utility
 function resetLines() {
   // console.log("resetlines executing")
   d3.select('#userRoster').selectAll("*").remove()
-  tickerData = []
 }
 
 //takes a player name and searches list of players for player data
