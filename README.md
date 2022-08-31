@@ -1,4 +1,9 @@
-# NFL Fantasy Football AI Predictor 
+# NFL Fantasy Football AI Assistant
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/101227638/187763276-cece406f-0808-48cc-a861-8d94bf1ad3ed.png" />
+</p>  
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/101227638/187761595-659835db-2994-48fb-b2d0-8246b14088f9.png" />
 </p>                                                                                                               
@@ -25,6 +30,10 @@ Additionally, to handle to the rookie class of 2022 we used web scraping and API
 **Machine Learning:** 
 
 Our initial goal is to predict “sleepers”, those players who have potential for big Fantasy Scores but are overlooked by the current models. Since, we are providing suggested draft order for the entire fantasy squad this had to be balanced with “conventional wisdom”, we had to make sure that in our efforts to predict “sleepers” that favored candidates still appeared in draft locations that insured a winning fantasy team. Evaluating models – we looked at a wide range of models in each of the disciplines. We looked at unsupervised learning and while our data did lend itself to clustering, which you will see in a later slide.  We also looked at deep-learning models. We ran our largest dataset though 179 Keras turner trials.  However, the deep learning models suffered to produce good results. We chose to concentrate on supervised learning models to achieve our prediction results. We tested our data against 9 algorithms, with 6 scalers.  We ran each of our 4 sets of data independent of each other. Not all datasets performed equally with each model. Each data set has it own saved ML model. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/101227638/187763616-d7fd26cc-e707-4b15-b98a-80a40afbc2c0.png" />
+</p>
 
 In total we ran our largest dataset through over 450 models. In the end linear regression and extra trees regressions produced the best results respective to their input datasets. While our data did form the expected clusters by skill position – the models were unable to produce the ranked results we were looking to get. After establishing some effective models – we focused on creating features and standardizing input features to produce our desired rankings. The wizardry really did happen in this step, If you are interested in seeing how we calculated our magic features by all means check it out in the NFL_Fantasy_improve _Target_woQB notebook.  We were able to verify our magic, by watching a specific player we predicted should be higher in the draft order – move up in the draft order during the few days we had to monitor changes! Yay magic.
 
