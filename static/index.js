@@ -12,47 +12,18 @@ function playerSelected() {
 function addSelectedTeam(team) {
   let s3link = "https://ffai.s3.amazonaws.com/logo-" + mapTeams(team) + ".png"
 
-d3.select('#teamRoster').selectAll("*").remove()
-teamRoster = []
-d3.select("#teamRoster")
-  .append("card")
-  .attr("class", "col-sm-4")
-  // .attr("style","width: 6rem;")
-  // <img class="card-img-top" src="..." alt="Card image cap">
-  // .append("img")
-  // <h5 class="card-title">Card title</h5>
-  .append("h5")
-  .attr("class", "card-title")
-  .text(team)
-  .append("img")
-  .attr("class", "card-img-top")
-  .attr("src", s3link)
-
-  .on("click", function (d) {
-    console.log(d.target.childNodes[0].data);
-    console.log(searchPlayerList((d.target.childNodes[0].data).split(",")[0]))
-  })
-
-teamRoster.push(team)
-}
-
-function addSelectedPlayer(player) {
-  playerEncoded = player.replace(" ", "+") + ".png"
-  let s3link = "https://ffai.s3.amazonaws.com/" + playerEncoded
-  console.log("s3link is " + s3link)
-
-  // console.log("addTickerSelected being executed on " + ticker)
-  d3.select("#userRoster")
+  d3.select('#teamRoster').selectAll("*").remove()
+  teamRoster = []
+  d3.select("#teamRoster")
     .append("card")
-    .attr("class","col-sm-4")
+    .attr("class", "col-sm-4")
     // .attr("style","width: 6rem;")
     // <img class="card-img-top" src="..." alt="Card image cap">
-      // .append("img")
-      // <h5 class="card-title">Card title</h5>
+    // .append("img")
+    // <h5 class="card-title">Card title</h5>
     .append("h5")
     .attr("class", "card-title")
-    .text(player)
-    // .html(player)
+    .text(team)
     .append("img")
     .attr("class", "card-img-top")
     .attr("src", s3link)
@@ -61,6 +32,39 @@ function addSelectedPlayer(player) {
       console.log(d.target.childNodes[0].data);
       console.log(searchPlayerList((d.target.childNodes[0].data).split(",")[0]))
     })
+
+  teamRoster.push(team)
+}
+
+function addSelectedPlayer(player) {
+
+  if (!userRoster.includes(player)) {
+    playerEncoded = player.replace(" ", "+") + ".png"
+    let s3link = "https://ffai.s3.amazonaws.com/" + playerEncoded
+    // console.log("s3link is " + s3link)
+
+    // console.log("addTickerSelected being executed on " + ticker)
+    d3.select("#userRoster")
+      .append("card")
+      .attr("class", "col-sm-4")
+      // .attr("style","width: 6rem;")
+      // <img class="card-img-top" src="..." alt="Card image cap">
+      // .append("img")
+      // <h5 class="card-title">Card title</h5>
+      .append("h5")
+      .attr("class", "card-title")
+      .text(player)
+      // .html(player)
+      .append("img")
+      .attr("class", "card-img-top")
+      .attr("src", s3link)
+
+      .on("click", function (d) {
+        console.log(d.target.childNodes[0].data);
+        console.log(searchPlayerList((d.target.childNodes[0].data).split(",")[0]))
+      })
+    userRoster.push(player)
+  }
 }
 
 init();
@@ -98,6 +102,7 @@ function init() {
 function resetLines() {
   // console.log("resetlines executing")
   d3.select('#userRoster').selectAll("*").remove()
+  userRoster = []
 }
 
 //takes a player name and searches list of players for player data
@@ -182,25 +187,25 @@ function handlePagination() {
       var endItem = startItem + rowsShown;
       $('#playerTable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
         css('display', 'table-row').animate({ opacity: 1 });
-        $([document.documentElement, document.body]).animate({
-          scrollTop: $("#playerTable").offset().top
+      $([document.documentElement, document.body]).animate({
+        scrollTop: $("#playerTable").offset().top
       }, 2000);
-            //   $('body,html').animate({
-            //     scrollTop: 500
-            // }, 600);
+      //   $('body,html').animate({
+      //     scrollTop: 500
+      // }, 600);
       // var element = $('#playerTable tbody tr')
       // $('body').scrollTo('#playerTable'); // Scroll screen to target element
 
-    //   $([document.documentElement, document.body]).animate({
-    //     scrollTop: $("#elementtoScrollToID").offset().top
-    // }, 2000);
+      //   $([document.documentElement, document.body]).animate({
+      //     scrollTop: $("#elementtoScrollToID").offset().top
+      // }, 2000);
 
       // element = document.getElementById("playerTable")
       // element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
       // .animate({ scrollTop:1000, opacity: 1 }, 300);
-    //   $([document.documentElement, document.body]).animate({
-    //     scrollTop: $("#elementtoScrollToID").offset().top
-    // }, 2000);
+      //   $([document.documentElement, document.body]).animate({
+      //     scrollTop: $("#elementtoScrollToID").offset().top
+      // }, 2000);
       // document.getElementById('playerTable').scrollIntoView();
       // document.getElementById("playerTable").scrollIntoView();
       // $('body').on("click", "#navpage a",function() {
