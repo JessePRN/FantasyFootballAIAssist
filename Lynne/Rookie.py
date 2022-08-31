@@ -6,7 +6,6 @@
 # laf 08.28.2022
 
 
-
 #--------------------------------------------------
 #       Function : rookie_fix         
 #     Argument: Rookie Non-QB df  
@@ -89,7 +88,10 @@ def rookie_fix_qb(rqbx):
 
     return ror
 
-
+#--------------------------------------------------
+#       Function : inactive_fix         
+#     Argument: Veteran Non-QB df  
+#--------------------------------------------------
 # Backfill Features for players who were inactive in prior years
 # for the prescribed testing period - NonQB Skill Positions 
 def inactive_fix(z):
@@ -134,6 +136,10 @@ def inactive_fix(z):
 
     return z
 
+#--------------------------------------------------
+#       Function : inactive_fix_qb         
+#     Argument: Veteran Quaterback df  
+#--------------------------------------------------
 # Backfill Features for players who were inactive in prior years
 # for the prescribed testing period - Quarterback Position
 def inactive_fix_qb(z):
