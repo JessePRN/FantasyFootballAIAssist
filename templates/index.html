@@ -83,33 +83,33 @@
 
 		<section class="visual">
 			<img src="static/images/football_field2.jpg" alt="" class="bg-stretch2">
-			
+
 			<div class="visual-container">
-				
-					<div class = "container">
-						<div class="row">
-							
-								<div class="col-md-8">
-					
-									<div class="btn-group d-flex justify-content-center" id="playerFilter" role="group"
-										aria-label="Player Filter">
-										<button type="button" class="btn btn-secondary"
-											onclick="filterPlayers(this.value)">All</button>
-										<button type="button" class="btn btn-secondary"
-											onclick="updateAllCharts('QB')">QB</button>
-										<button type="button" class="btn btn-secondary"
-											onclick="updateAllCharts('RB')">RB</button>
-										<button type="button" class="btn btn-secondary"
-											onclick="updateAllCharts('WR')">WR</button>
-										<button type="button" class="btn btn-secondary"
-											onclick="updateAllCharts('TE')">TE</button>
-									</div>
-									<div class = 'bubble'>
-									<!-- <div class="col-md-8"> -->
-										<div class ='text-box'>
-										<table class="table table-striped" id="playerTable">
-											<thead>
-												<tr>
+
+				<div class="container">
+					<div class="row">
+
+						<div class="col-md-8">
+
+							<div class="btn-group d-flex justify-content-center" id="playerFilter" role="group"
+								aria-label="Player Filter">
+								<button type="button" class="btn btn-secondary"
+									onclick="updateAllCharts('All')">All</button>
+								<button type="button" class="btn btn-secondary"
+									onclick="updateAllCharts('QB')">QB</button>
+								<button type="button" class="btn btn-secondary"
+									onclick="updateAllCharts('RB')">RB</button>
+								<button type="button" class="btn btn-secondary"
+									onclick="updateAllCharts('WR')">WR</button>
+								<button type="button" class="btn btn-secondary"
+									onclick="updateAllCharts('TE')">TE</button>
+							</div>
+							<div class='bubble'>
+								<!-- <div class="col-md-8"> -->
+								<div class='text-box'>
+									<table class="table table-striped" id="playerTable">
+										<thead>
+											<tr>
 												<th>Player</th>
 												<th>Points 2021</th>
 												<th>POS</th>
@@ -119,45 +119,50 @@
 												<th>Avg</th>
 												<th>Prediction</th>
 												<th>Add to Roster</th>
-												</tr>
-											</thead>
-											<tbody></tbody>
-											</table>
-										</div>	
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
 								</div>
 							</div>
+						</div>
 						<!-- user roster -->
-							<div class="col-sm-4">
-								<div class = 'bubble'>
-									
-									<h3 class="text-box">User Roster</h3>
-									<button type="button" class="btn" onclick="resetLines()">Reset</button>
-									<div class="text-box" id="userRoster">
-									</div>
-									
+						<div class="col-sm-4">
+							<div class='container'>
+								<h3 class="text-box">User Roster</h3>
+
+								<div id="userRoster" class="row align-items-start">
+
+
+
+
+								</div>
+
+								<button type="button" class="btn" onclick="resetLines()">Reset</button>
+								<!-- <div class="container" id="userRoster"> -->
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="container">
+						<div class="col-lg-12">
+							<div class='bubble'>
+								<h2 class="text-box"> Prediction Wheel</h2>
+								<h3 class='text-box'> AI predicted draft positions</h3>
+								<!-- Create a div where the graph will take place -->
+								<div id="radialChart">
 								</div>
 							</div>
-						</div>	
-					
-	
-		
-							<div class="container">
-								<div class = "col-lg-12">
-									<div class = 'bubble'>
-										<h2 class="text-box"> Prediction Wheel</h2>
-											<h3 class ='text-box'> AI predicted draft positions</h3>
-											<!-- Create a div where the graph will take place -->
-											<div id="radialChart">
-										</div>
-									</div>	
-								</div>
-							</div>  
+						</div>
 					</div>
-			
-					
-				
+				</div>
+
+
+
 			</div>
-			
+
 		</section>
 		<!-- <div class="visual-area">
 			<div class="container">
