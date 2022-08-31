@@ -25,6 +25,7 @@
 
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v6.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
   <!-- Function for radial charts -->
   <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script>
@@ -93,7 +94,7 @@
 								<button type="button" class="btn btn-secondary" onclick="updateAllCharts('WR')">WR</button>
 								<button type="button" class="btn btn-secondary" onclick="updateAllCharts('TE')">TE</button>
 							</div>
-			
+							
 							<!-- <div class="col-md-8"> -->
 							<table class="table table-striped" id="playerTable">
 								<thead>
@@ -115,13 +116,13 @@
 				  
 					<!-- user roster -->
 						<div class="col-sm-4">
-							
+							<div class = "container">
 								
 								<div class="text-box">User Roster</div>
 								<button type="button" class="btn" onclick="resetLines()">Reset</button>
 								<div class="text-box" id="userRoster">
 								</div>
-								
+							</div>
 							
 						</div>
 					</div>	
@@ -139,7 +140,7 @@
 						</div>  
 				</div>
 		
-				<img src="static/images/football_field.jpg" alt="" class="bg-stretch2">
+				<img src="static/images/football_field.jpg" alt="" class="bg-stretch">
 			</div>
 		
 		
