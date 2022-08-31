@@ -61,10 +61,9 @@ function init() {
     filterBuildTableClean("QB")
     handlePagination()
   })
-
   // displaying radius chart
   drawRadialChart('QB')
-  // console.log("display radial chart")
+
 }//end init
 
 //utility
