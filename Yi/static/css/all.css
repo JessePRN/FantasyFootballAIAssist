@@ -197,7 +197,7 @@ p {
 
   .visual  .container {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: center;
     position: relative;
     z-index: 1;
     font-size: 2.4rem;
@@ -225,9 +225,9 @@ p {
 
 .bubble {
   border-radius: 25px;
-  background-color: #9a9a9a;
+  background-color: #c5c0c0;
   border: 2px solid #73AD21;
-  ;
+  padding: 25px;
 }
 #cta {
   position: relative;
@@ -300,11 +300,17 @@ p {
  
 .text-box {
   text-align: center;
-  font-size: 2.1rem;
+  font-size: 1.5rem;
   line-height: 1.524;
   color: #333333;
   padding-bottom: 23px; }
   .text-box h2 {
+    margin: 0 0 20px;
+    font-size: 5.4rem;
+    line-height: 1.148;
+    text-transform: uppercase;
+    font-weight: bold; }
+  .text-box h3 {
     margin: 0 0 20px;
     font-size: 5.4rem;
     line-height: 1.148;
