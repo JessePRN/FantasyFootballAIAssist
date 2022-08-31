@@ -1,4 +1,4 @@
-# NFL-Model Tuning and Creation space
+# NFL-Fantasy Draft "sleepers" Model Tuning and Creation space
 
 Folder Contents: 
 
@@ -19,3 +19,13 @@ This folder contains all of the testing and model development for the Fantasy "S
 * NFL_Fantasy_Rookie_woQB.ipynb  
 * NFL_Fantasy_model_Tuner_QB.ipynb  
 * NFL_Fantasy_model_Tuner_woQB.ipynb  
+
+#### Misc Development Notebooks
+* Rookie.ipynb (obsolete) see .py
+* NFL_Fantasy_Predictor.ipynb (obsolete) see .py
+
+#### Production Scripts
+* NFL_Fantasy_Predictor.py
+    * This script takes the target calculated imput files from Ronnie directory and the webscraped rookie data from Yi directory makes data and format changes. Then runs them against their respective ML Models and produces a raw output file to rebuild the postgres data. 
+*  Rookie.py
+    * This script contains all the custom functions to prepare the raw files to be run through the ML models.     
