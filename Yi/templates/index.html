@@ -34,7 +34,7 @@
 		<header id="header">
 			<div class="container">
 				<div class="logo"><a href="#"><img src="static/images/logo.png" alt="Sports"></a></div>
-				<nav id="nav">
+				<!-- <nav id="nav">
 					<div class="opener-holder">
 						<a href="#" class="nav-opener"><span></span></a>
 					</div>
@@ -56,7 +56,7 @@
 							</ul>
 						</div>
 					</div>
-				</nav>
+				</nav> -->
 			</div>
 		</header>
 
@@ -88,12 +88,18 @@
 						
 							<div class="col-md-8">
 				
-								<div class="btn-group" role="group" aria-label="Player Filter">
-									<button type="button" class="btn btn-secondary" onclick="filterPlayers(this.value)">All</button>
-									<button type="button" class="btn btn-secondary" onclick="updateAllCharts('QB')">QB</button>
-									<button type="button" class="btn btn-secondary" onclick="updateAllCharts('RB')">RB</button>
-									<button type="button" class="btn btn-secondary" onclick="updateAllCharts('WR')">WR</button>
-									<button type="button" class="btn btn-secondary" onclick="updateAllCharts('TE')">TE</button>
+								<div class="btn-group d-flex justify-content-center" id="playerFilter" role="group"
+									aria-label="Player Filter">
+									<button type="button" class="btn btn-secondary"
+										onclick="filterPlayers(this.value)">All</button>
+									<button type="button" class="btn btn-secondary"
+										onclick="updateAllCharts('QB')">QB</button>
+									<button type="button" class="btn btn-secondary"
+										onclick="updateAllCharts('RB')">RB</button>
+									<button type="button" class="btn btn-secondary"
+										onclick="updateAllCharts('WR')">WR</button>
+									<button type="button" class="btn btn-secondary"
+										onclick="updateAllCharts('TE')">TE</button>
 								</div>
 								<div class = 'bubble'>
 								<!-- <div class="col-md-8"> -->
