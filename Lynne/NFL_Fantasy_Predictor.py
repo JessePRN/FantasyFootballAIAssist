@@ -18,7 +18,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 import joblib
 import sys
-from Rookie import rookie_fix, rookie_fix_qb, inactive_fix
+from Rookie import rookie_fix, rookie_fix_qb, inactive_fix, inactive_fix_qb
 
 # Results Column Labels
 RSC = ['Player','2019 FantasyPoints', '2020 FantasyPoints', '2021 FantasyPoints',
@@ -34,7 +34,7 @@ rdraft = joblib.load("Resources/draft_Rookie.joblib")
 adp = pd.read_csv('Resources/ADPxFinal.csv') # Skill Players Not Including Quarterbacks
 qb = pd.read_csv('Resources/QBxADPxFinal.csv') # Quarterbacks
 r = pd.read_csv('Resources/Rookies_RB_WR_TE.csv') # Skill Players Not Including Quarterbacks(rookies)
-rqb = pd.read_csv('Resources/Rookies_QB.csv') # Skill Players Not Including Quarterbacks(rookies)
+rqb = pd.read_csv('Resources/Rookies_QB.csv') # Quarterbacks(rookies)
 
 # Drop players ineligible to be drafted 
 adp.dropna(subset=['AVG'], inplace=True)
@@ -45,6 +45,8 @@ qb.drop(qb[qb['AVG'] == 0].index, inplace = True)  # For Veteran QB Only null AV
 
 r = rookie_fix(r)
 rqb = rookie_fix_qb(rqb)
+adp = inactive_fix(adp)
+adp = inactive_fix_qb(qb)
 
 # Preserve label information for Output file 
 adp_scope = adp[RSC].copy()
@@ -59,6 +61,8 @@ qb.drop(qb.columns[col],axis=1,inplace=True)
 r.drop(r.columns[col],axis=1,inplace=True)
 rqb.drop(rqb.columns[col],axis=1,inplace=True)
 
+# For all dataset verify validity of data
+# Veteran players non_QB and QB
 # Verify that expected numeric data is numeric 
 invalidNumbers = adp[~adp.applymap(np.isreal).all(1)]
 if len(invalidNumbers) > 0:
@@ -132,11 +136,13 @@ apds = MinMaxScaler().fit_transform(adp)
 rs = MinMaxScaler().fit_transform(r)
 rqbs = MinMaxScaler().fit_transform(rqb)
 
+
 # Applying PCA to reduce dimensions to the number required by each model  
 pca = PCA(n_components= 23)
 pcaq = PCA(n_components= 14)
 pcar = PCA(n_components= 3)
 pcarq = PCA(n_components= 3)
+
 
 # Fit our new Principal Component Analysis reduced Features to our Model
 pfa = pca.fit_transform(apds)
@@ -144,11 +150,13 @@ pfb = pcaq.fit_transform(qbs)
 pfc = pcar.fit_transform(r)
 pfd = pcarq.fit_transform(rqb)
 
+
 # Transform PCA data to a DataFrame
 pf = pd.DataFrame(data=pfa)
 pfqb = pd.DataFrame(data=pfb)
 pfr = pd.DataFrame(data=pfc)
 pfrqb = pd.DataFrame(data=pfd)
+
 
 # Predict Draft Positions
 draft_position = draft.predict(pf)
@@ -156,16 +164,20 @@ qb_draft_position = qbdraft.predict(pfqb)
 r_draft_position = rdraft.predict(pfc)
 rqb_draft_position = rdraft.predict(pfd)
 
-# Add predicted draft positions to our results file 
-frames = [adp_scope, qb_scope, r_scope, rqb_scope]
 
+# Add predicted draft positions to our results file 
 adp_scope['Prediction'] = draft_position
 qb_scope['Prediction'] = qb_draft_position
 r_scope['Prediction'] = r_draft_position
 rqb_scope['Prediction'] = rqb_draft_position
 
-# Combine DataFrames into complete dataset.
+
+# Variable to hold dfs that make up our result set
+frames = [adp_scope, qb_scope, r_scope, rqb_scope]
+
+# Combine DataFrames into complete dataset
 final = pd.concat(frames)
+final = final.reset_index()
 
 # Write file to csv 
-final.to_csv('Resources/Draft.csv')
+final.to_csv('Resources/DraftTest.csv')
