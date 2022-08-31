@@ -7,16 +7,16 @@
 	<meta name="description" content="A free responsive website template made exclusively for Frittt by Themesforce and Sarfraz Shaukat">
 	<meta name="keywords" content="website template, css3, one page, bootstrap, app template, web app, start-up">
 	<meta name="author" content="Themesforce and Sarfraz Shaukat for Frittt">
-	<link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
-	<link rel="stylesheet" href="../css/bootstrap.css">
-	<link rel="stylesheet" href="../fonts/font-awesome-4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="../css/all.css">
+	<link rel="icon" type="image/png" href="static/favicons/favicon-16x16.png" sizes="16x16">
+	<link rel="stylesheet" href="static/css/bootstrap.css">
+	<link rel="stylesheet" href="static/fonts/font-awesome-4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/all.css">
 	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700|Source+Sans+Pro:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
     crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="../static/style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="../static/style.css"> -->
  <!-- circular bar chart begin -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.6.1/d3.js"
     integrity="sha512-pJbXh9nxFa1tkmI3Gxiay8+mKTW+QvM8aMrTSR4xcw671sTWkvlHBgnyqXCRr1HFkE0YwhoRZwcdUFFxP4D9Lg=="
@@ -33,7 +33,7 @@
 <div id="wrapper">
 		<header id="header">
 			<div class="container">
-				<div class="logo"><a href="#"><img src="../images/logo.png" alt="Sports"></a></div>
+				<div class="logo"><a href="#"><img src="static/images/logo.png" alt="Sports"></a></div>
 				<nav id="nav">
 					<div class="opener-holder">
 						<a href="#" class="nav-opener"><span></span></a>
@@ -59,6 +59,8 @@
 				</nav>
 			</div>
 		</header>
+
+<!-- jumbotron -->
 	<section class="visual">
 		<div class="container">
 			<div class="text-block">
@@ -73,85 +75,75 @@
 				<span class="info">Get started now</span>
 			</div>
 		</div>
-		<img src="../images/football_stadium.jpg" alt="" class="bg-stretch">
+		<img src="static/images/football_stadium.jpg" alt="" class="bg-stretch">
 	</section>
-	<section class="main">
+
+	<section class="visual">
+		
 		<div class="container">
-			<div id="cta">
-				<a href="javascript:" class="btn btn-primary rounded">Start Playing Now</a>
-				<!-- <p>Every game is a challenge, change your life now.</p> -->
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="card form-control">
-					  <div class="card-body">
-						<h5 class="card-title">Select Player</h5>
-						<p class="card-text">Select a player for your team. </p>
-						<select id="selectPlayer" onchange="playerSelected(this.value)"></select>
-					  </div>
-					</div>
-				  </div>
-			
-				  <div class="btn-group" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-secondary" onclick="filterPlayers(this.value)">All</button>
-					<button type="button" class="btn btn-secondary" onclick="updateAllCharts('QB')">QB</button>
-					<button type="button" class="btn btn-secondary" onclick="updateAllCharts('RB')">RB</button>
-					<button type="button" class="btn btn-secondary" onclick="updateAllCharts('WR')">WR</button>
-					<button type="button" class="btn btn-secondary" onclick="updateAllCharts('TE')">TE</button>
-					<!-- <button type="button" class="btn btn-secondary" onclick="updateAllCharts('K')">K</button>
-					<button type="button" class="btn btn-secondary" onclick="updateAllCharts('DST')">DST</button> -->
-			
-			
-				  </div>
-			
-				  <ul class="list-group" id="playerList">
-					<!-- <li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li> -->
-				  </ul>
-			</div>
-		</div>
-	</section>
-	<section class="area">
-		<div class="container">
-			<div class="row">
-					 <!-- user roster -->
-					 <div class="col-sm-4">
-						<div class="card form-control">
-						  <div class="card-body">
-							<h5 class="card-title">User Roster</h5>
-							<button type="button" class="btn" onclick="resetLines()">Reset</button>
-							<div class="card-text" id="userRoster">
+			<div class = "visual-area">
+				<div class = "content">
+					<div class="row">
+						<div class="col-md-8">
+			  
+							<div class="btn-group" role="group" aria-label="Player Filter">
+								<button type="button" class="btn btn-secondary" onclick="filterPlayers(this.value)">All</button>
+								<button type="button" class="btn btn-secondary" onclick="updateAllCharts('QB')">QB</button>
+								<button type="button" class="btn btn-secondary" onclick="updateAllCharts('RB')">RB</button>
+								<button type="button" class="btn btn-secondary" onclick="updateAllCharts('WR')">WR</button>
+								<button type="button" class="btn btn-secondary" onclick="updateAllCharts('TE')">TE</button>
 							</div>
-						  </div>
+			
+							<!-- <div class="col-md-8"> -->
+							<table class="table table-striped" id="playerTable">
+								<thead>
+									<tr>
+									<th>Player</th>
+									<th>Points 2021</th>
+									<th>POS</th>
+									<th>PROD</th>
+									<th>ATP</th>
+									<th>Team</th>
+									<th>Avg</th>
+									<th>Prediction</th>
+									<th>Add to Roster</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+								</table>
 						</div>
-					  </div>
+				  
+					<!-- user roster -->
+						<div class="col-sm-4">
+							
+								
+								<div class="text-box">User Roster</div>
+								<button type="button" class="btn" onclick="resetLines()">Reset</button>
+								<div class="text-box" id="userRoster">
+								</div>
+								
+							
+						</div>
+					</div>	
 				
-					  <div id="playerTable" class="panel-body"></div>
-				
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+
 	
-	<section class="visual-container">
-		<div class="visual-area">
-			<div class="container">
-				<div class = "col-lg-12">
-					<div class = "card form-control">
-					  <div class = "card-body">
-						<h5 class="card-title"> Prediction Wheel</h5>
-						<P> AI predicted draft positions</P>
-						  <!-- Create a div where the graph will take place -->
-						<div id="radialChart"></div>
-					  </div>
-					</div>  
-				  </div>
+						<div class="container">
+							<div class = "col-lg-12">
+									<h5 class="text-box"> Prediction Wheel</h5>
+										<h3> AI predicted draft positions</h3>
+										<!-- Create a div where the graph will take place -->
+										<div id="radialChart">
+									</div>
+							</div>
+						</div>  
+				</div>
+		
+				<img src="static/images/football_field.jpg" alt="" class="bg-stretch2">
 			</div>
-		</div>
+		
+		
+	</section>
 		<!-- <div class="visual-area">
 			<div class="container">
 				<h2>Pricing Plans</h2>
@@ -275,9 +267,11 @@
 		</div>
 	</footer>
 </div> -->
+</div>
+
 <script src="js/jquery-1.11.2.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.main.js"></script>
-<script src="js/index.js"></script>
+<script src="static/index.js"></script>
 </body>
 </html>
