@@ -66,18 +66,18 @@
 		<!-- jumbotron -->
 		<section class="visual">
 			<div class="container">
-				<div class = 'col-md-12'>
-				<div class="text-block">
-					<div class="heading-holder">
-						<h1>Fantasy Football AI Assistant</h1>
-						<p>Play to Win</p>
-					</div>
-					<div class="heading-holder">
-						<h2>Conquer your league!</h2>
+				<div class='col-md-12'>
+					<div class="text-block">
+						<div class="heading-holder">
+							<h1>Fantasy Football AI Assistant</h1>
+							<p>Play to Win</p>
+						</div>
+						<div class="heading-holder">
+							<h2>Conquer your league!</h2>
 
+						</div>
+						<span class="info">Get started now</span>
 					</div>
-					<span class="info">Get started now</span>
-				</div>
 				</div>
 			</div>
 			<img src="static/images/football_stadium.jpg" alt="" class="bg-stretch">
@@ -127,46 +127,61 @@
 									</table>
 								</div>
 							</div>
+							<div class='bubble'>
+								<!-- <div class="col-md-8"> -->
+								<div class='text-box'>
+									<table class="table table-striped" id="teamTable">
+										<thead>
+											<tr>
+												<th>Team</th>
+												<th>Add to Roster</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+							</div>
 						</div>
 						<!-- user roster -->
 						<div class="col-md-4">
 							<div class='container'>
-								<h3 class="text-box">User Roster</h3>
+								<h3 class="text-box roster" style="background-color:#26598b; color:aliceblue">User Roster</h3>
 
 								<div id="userRoster" class="row align-items-start">
-
-
-
-
 								</div>
 
-								<button type="button" class="btn" onclick="resetLines()">Reset</button>
+								<button type="button" class="btn btn-warning" onclick="resetLines()">Reset</button>
+								<h3 class="text-box roster" style="background-color:#26598b; color:aliceblue">Team Roster</h3>
+
+								<div id="teamRoster">
+
+								</div>
 								<!-- <div class="container" id="userRoster"> -->
-								</div>
-
 							</div>
-						</div>
-					</div>
 
-					<div class="container">
-						<div class="col-sm-12">
-							<div class='bubble'>
-								<h2 class="text-box"> Prediction Wheel</h2>
-								<h3 class='text-box'> AI predicted draft positions</h3>
-								<!-- Create a div where the graph will take place -->
-								<div id="radialChart">
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 
-
-
+				<div class="container">
+					<div class="col-sm-12">
+						<div class='bubble'>
+							<h2 class="text-box"> Prediction Wheel</h2>
+							<h3 class='text-box'> AI predicted draft positions</h3>
+							<!-- Create a div where the graph will take place -->
+							<div id="radialChart">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
-		</section>
-		<!-- <div class="visual-area">
+
+
+	</div>
+
+	</section>
+	<!-- <div class="visual-area">
 			<div class="container">
 				<h2>Pricing Plans</h2>
 				<div class="pricing-tables">

@@ -9,6 +9,33 @@ function playerSelected() {
   console.log("selected player is " + player)
 }
 
+function addSelectedTeam(team) {
+  let s3link = "https://ffai.s3.amazonaws.com/logo-" + mapTeams(team) + ".png"
+
+d3.select('#teamRoster').selectAll("*").remove()
+teamRoster = []
+d3.select("#teamRoster")
+  .append("card")
+  .attr("class", "col-sm-4")
+  // .attr("style","width: 6rem;")
+  // <img class="card-img-top" src="..." alt="Card image cap">
+  // .append("img")
+  // <h5 class="card-title">Card title</h5>
+  .append("h5")
+  .attr("class", "card-title")
+  .text(team)
+  .append("img")
+  .attr("class", "card-img-top")
+  .attr("src", s3link)
+
+  .on("click", function (d) {
+    console.log(d.target.childNodes[0].data);
+    console.log(searchPlayerList((d.target.childNodes[0].data).split(",")[0]))
+  })
+
+teamRoster.push(team)
+}
+
 function addSelectedPlayer(player) {
   playerEncoded = player.replace(" ", "+") + ".png"
   let s3link = "https://ffai.s3.amazonaws.com/" + playerEncoded
@@ -63,6 +90,7 @@ function init() {
   })
   // displaying radius chart
   drawRadialChart('QB')
+  buildTeamRoster()
 
 }//end init
 
@@ -80,6 +108,26 @@ function searchPlayerList(player) {
       return obj
     }
   }
+}
+
+function buildTeamRoster() {
+
+  let teams = getTeams()
+  for (var i = 0; i < teams.length; i++) {
+    var obj = teams[i]
+
+    row = d3.select('#teamTable').select('tbody').append("tr")
+    // .data(obj)
+    // .enter().append("tr")
+    row.append('td').text(obj)
+
+    row.append('td').append("button").attr("value", obj).text("+").on("click", function (d) {
+      console.log(d.target.value)
+      addSelectedTeam((d.target.value))
+    })
+    // playerListDisplay.push(obj)
+  }
+  handleTeamPagination()
 }
 
 function filterBuildTableClean(pos) {
@@ -240,4 +288,134 @@ function updateAllCharts(pos) {
   drawRadialChart(pos)
 
   console.log("confirm updating all charts")
+}
+
+function handleTeamPagination() {
+  d3.select('#teamnav').selectAll("*").remove()
+
+  $(document).ready(function () {
+    $('#teamTable').after('<div id="teamnav"></div>');
+    var rowsShown = 4;
+    var rowsTotal = $('#teamTable tbody tr').length;
+    var numPages = rowsTotal / rowsShown;
+    for (i = 0; i < numPages; i++) {
+      var pageNum = i + 1;
+      $('#teamnav').append('<a href="#" rel="' + i + '">' + pageNum + '</a> ');
+    }
+    $('#teamTable tbody tr').hide();
+    $('#teamTable tbody tr').slice(0, rowsShown).show();
+    $('#teamnav a:first').addClass('active');
+    $('#teamnav a').bind('click', function () {
+
+      $('#teamnav a').removeClass('active');
+      $(this).addClass('active');
+      var currPage = $(this).attr('rel');
+      var startItem = currPage * rowsShown;
+      var endItem = startItem + rowsShown;
+      $('#teamTable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+        css('display', 'table-row').animate({ opacity: 1 });
+      $([document.documentElement, document.body]).animate({
+        scrollTop: $("#teamTable").offset().top
+      }, 2000);
+      //   $('body,html').animate({
+      //     scrollTop: 500
+      // }, 600);
+      // var element = $('#playerTable tbody tr')
+      // $('body').scrollTo('#playerTable'); // Scroll screen to target element
+
+      //   $([document.documentElement, document.body]).animate({
+      //     scrollTop: $("#elementtoScrollToID").offset().top
+      // }, 2000);
+
+      // element = document.getElementById("playerTable")
+      // element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+      // .animate({ scrollTop:1000, opacity: 1 }, 300);
+      //   $([document.documentElement, document.body]).animate({
+      //     scrollTop: $("#elementtoScrollToID").offset().top
+      // }, 2000);
+      // document.getElementById('playerTable').scrollIntoView();
+      // document.getElementById("playerTable").scrollIntoView();
+      // $('body').on("click", "#navpage a",function() {
+      //   $('html, body').animate({scrollTop:400}, 1000);
+      //   });  
+    })
+  })
+}
+
+function getTeams() {
+  return teams =
+    ['Arizona Cardinals',
+      'Atlanta Falcons',
+      'Baltimore Ravens',
+      'Buffalo Bills',
+      'Carolina Panthers',
+      'Chicago Bears',
+      'Cincinnati Bengals',
+      'Cleveland Browns',
+      'Dallas Cowboys',
+      'Denver Broncos',
+      'Detroit Lions',
+      'Green Bay Packers',
+      'Houston Texans',
+      'Indianapolis Colts',
+      'Jacksonville Jaguars',
+      'Kansas City Chiefs',
+      'Miami Dolphins',
+      'Minnesota Vikings',
+      'New England Patriots',
+      'New Orleans Saints',
+      'NY Giants',
+      'NY Jets',
+      'Las Vegas Raiders',
+      'Philadelphia Eagles',
+      'Pittsburgh Steelers',
+      'Los Angeles Chargers',
+      'San Francisco 49ers',
+      'Seattle Seahawks',
+      'Los Angeles Rams',
+      'Tampa Bay Buccaneers',
+      'Tennessee Titans',
+      'Washington Football Team']
+}
+
+function getAbbr() {
+
+  return teamabbr =
+    ['ARI',
+      'ATL',
+      'BAL',
+      'BUF',
+      'CAR',
+      'CHI',
+      'CIN',
+      'CLE',
+      'DAL',
+      'DEN',
+      'DET',
+      'GB',
+      'HOU',
+      'IND',
+      'JAX',
+      'KC',
+      'MIA',
+      'MIN',
+      'NE',
+      'NO',
+      'NYG',
+      'NYJ',
+      'LV',
+      'PHI',
+      'PIT',
+      'LAC',
+      'SF',
+      'SEA',
+      'LAR',
+      'TB',
+      'TEN',
+      'WAS']
+}
+
+function mapTeams(team) {
+  teamindex = getTeams().indexOf(team)
+  return getAbbr()[teamindex]
 }
