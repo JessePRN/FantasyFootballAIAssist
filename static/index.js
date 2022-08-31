@@ -17,6 +17,7 @@ function addSelectedPlayer(player) {
   // console.log("addTickerSelected being executed on " + ticker)
   d3.select("#userRoster")
     .append("card")
+    .attr("style","width: 18rem;")
     // <img class="card-img-top" src="..." alt="Card image cap">
       // .append("img")
       // <h5 class="card-title">Card title</h5>
@@ -63,15 +64,12 @@ function init() {
   // displaying radius chart
   drawRadialChart('All')
   console.log("display radial chart")
-
-
 }//end init
 
 //utility
 function resetLines() {
   // console.log("resetlines executing")
   d3.select('#userRoster').selectAll("*").remove()
-  tickerData = []
 }
 
 //takes a player name and searches list of players for player data
