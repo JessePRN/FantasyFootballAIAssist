@@ -100,29 +100,53 @@ function filterBuildTableClean(pos) {
 }
 
 function handlePagination() {
-  d3.select('#nav').selectAll("*").remove()
+  d3.select('#navpage').selectAll("*").remove()
 
   $(document).ready(function () {
-    $('#playerTable').after('<div id="nav"></div>');
+    $('#playerTable').after('<div id="navpage"></div>');
     var rowsShown = 10;
     var rowsTotal = $('#playerTable tbody tr').length;
     var numPages = rowsTotal / rowsShown;
     for (i = 0; i < numPages; i++) {
       var pageNum = i + 1;
-      $('#nav').append('<a href="#" rel="' + i + '">' + pageNum + '</a> ');
+      $('#navpage').append('<a href="#" rel="' + i + '">' + pageNum + '</a> ');
     }
     $('#playerTable tbody tr').hide();
     $('#playerTable tbody tr').slice(0, rowsShown).show();
-    $('#nav a:first').addClass('active');
-    $('#nav a').bind('click', function () {
+    $('#navpage a:first').addClass('active');
+    $('#navpage a').bind('click', function () {
 
-      $('#nav a').removeClass('active');
+      $('#navpage a').removeClass('active');
       $(this).addClass('active');
       var currPage = $(this).attr('rel');
       var startItem = currPage * rowsShown;
       var endItem = startItem + rowsShown;
       $('#playerTable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
-        css('display', 'table-row').animate({ opacity: 1 }, 300);
+        css('display', 'table-row').animate({ opacity: 1 });
+        $([document.documentElement, document.body]).animate({
+          scrollTop: $("#playerTable").offset().top
+      }, 2000);
+            //   $('body,html').animate({
+            //     scrollTop: 500
+            // }, 600);
+      // var element = $('#playerTable tbody tr')
+      // $('body').scrollTo('#playerTable'); // Scroll screen to target element
+
+    //   $([document.documentElement, document.body]).animate({
+    //     scrollTop: $("#elementtoScrollToID").offset().top
+    // }, 2000);
+
+      // element = document.getElementById("playerTable")
+      // element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+      // .animate({ scrollTop:1000, opacity: 1 }, 300);
+    //   $([document.documentElement, document.body]).animate({
+    //     scrollTop: $("#elementtoScrollToID").offset().top
+    // }, 2000);
+      // document.getElementById('playerTable').scrollIntoView();
+      // document.getElementById("playerTable").scrollIntoView();
+      // $('body').on("click", "#navpage a",function() {
+      //   $('html, body').animate({scrollTop:400}, 1000);
+      //   });  
     })
   })
 }
