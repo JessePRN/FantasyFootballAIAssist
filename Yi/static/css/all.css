@@ -184,7 +184,18 @@ p {
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%); }
-  .visual > .container {
+
+    .visual .bg-stretch2 {
+      position: absolute;
+      left: -150;
+      top: 0;
+      zoom: 205%;
+      background-size: cover; 
+      -webkit-transform: translateX(-500%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);}
+
+  .visual  .container {
     display: inline-block;
     vertical-align: top;
     position: relative;
@@ -212,6 +223,12 @@ p {
   .visual .text-block {
     padding: 220px 0; }
 
+.bubble {
+  border-radius: 25px;
+  background-color: #9a9a9a;
+  border: 2px solid #73AD21;
+  ;
+}
 #cta {
   position: relative;
   z-index: 1;
