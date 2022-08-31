@@ -1,7 +1,7 @@
 # NFL Fantasy Football AI Predictor 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/101227638/185289346-6e73682b-7a15-480b-9392-615084cf7361.png" />
-</p>
+<img src="https://user-images.githubusercontent.com/101227638/187761595-659835db-2994-48fb-b2d0-8246b14088f9.png" />
+</p>                                                                                                               
 
 **Introduction:** 
 
